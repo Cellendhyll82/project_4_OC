@@ -1,9 +1,123 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+  <div id="accueil-wrapper"
+  {% if accueilImage %}
+    class="background-image"
+    data-image="{{ accueilImage }}" 
+  {% endif %}
+  >
   
-  <p>
-    Content
-  </p>
-  
+    
+    <section id="accueil">
+      <div id="accueil-anchor" class="section-anchor" style="top: -200px;"></div>
+      <h1 {% if accueilImage %}class="background-image"{% endif %}>{{ accueil.title }}</h1>
+      <hr {% if accueilImage %}class="background-image"{% endif %}>
+
+      <div id="accueil-content" {% if accueilImage %}class="background-image"{% endif %}>
+        {{ accueil.content | raw }}
+      </div>
+    </section>
+  </div>
+
+  <section id="episodes">
+    <div id="episodes-anchor" class="section-anchor"></div>
+    <h1>{{ episodeSection.title }}</h1>
+    <hr>
+
+    {% for key, episode in episodes %}
+      <div class="episode-excerpt">
+        <div class="episode-excerpt-header" title="Clickez pour voir la description">
+          Episode {{ nbEpisodes - key }}: {{ episode.title }}
+          <span class="episode-excerpt-date">
+            {{ episode.publicationDate | date('d/m/Y') }}
+          </span>
+        </div>
+        <div class="episode-excerpt-content">
+          <div class="episode-excerpt-description">
+            {{ episode.description | raw }}
+          </div>
+          <a href="episode/{{ episode.slug }}" class="episode-excerpt-cta">
+            Lire l'épisode en entier
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section id="a-propos">
+    <div id="a-propos-anchor" class="section-anchor"></div>
+    <h1>{{ aPropos.title }}</h1>
+    <hr>
+
+    {% if aProposImage %}
+      <img src="www/images/small/{{ attribute(aProposImage | split('.'), 0) }}_sm.{{ attribute(aProposImage | split('.'), 1) }}">
+    {% endif %}
+
+    <div class="text-wrapper {% if aProposImage %}has-picture{% endif %}">
+      {{ aPropos.content | raw }}
+    </div>
+  </section>
+
+  <section id="contact">
+    <div id="contact-anchor" class="section-anchor"></div>
+    <h1>{{ contact.title }}</h1>
+    <hr>
+
+    <div id="contact-content">
+      {{ contact.content | raw }}
+    </div>
+
+    {% if contact.contactForm == 1 %}
+      <div id="contact-form-wrapper">
+
+        {% if tmpMessage %}
+            <div class="{{ tmpClass }}">
+                {{ tmpMessage | raw }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="?action=sendMail">
+          <input type="text" class="contact-input" name="contactForm-name" placeholder="Prenom nom*" 
+            {% if contactForm-name is defined %}
+              value="{{ contactForm-name }}"
+            {% endif %}
+          >
+          <p class="contact-input-error" id="contact-input-error-missing-name">
+            Veuillez insérer votre nom et prénom
+          </p>
+
+          <input type="text" class="contact-input" name="contactForm-email" placeholder="Email*" 
+            {% if contactForm-email is defined %}
+              value="{{ contactForm-email }}"
+            {% endif %}
+          >
+          <p class="contact-input-error" id="contact-input-error-missing-email">
+            Veuillez insérer votre email
+          </p>
+          <p class="contact-input-error" id="contact-input-error-invalid-email">
+            L'adresse email saisie n'est pas valide
+          </p>
+
+          <input type="text" class="contact-input" name="contactForm-subject" placeholder="Sujet*" 
+            {% if contactForm-subject is defined %}
+              value="{{ contactForm-subject }}"
+            {% endif %}
+          >
+          <p class="contact-input-error" id="contact-input-error-missing-subject">
+            Veuillez insérer le sujet de l'email
+          </p>
+
+          <textarea class="contact-input" name="contactForm-message" placeholder="Message*">{% if contactForm-message is defined %}{{ contactForm-message }}{% endif %}</textarea>
+          <p class="contact-input-error" id="contact-input-error-missing-message">
+            Veuillez insérer votre message
+          </p>
+
+          <input class="contact-submit" type="submit" name="send-email" value="Envoyer">
+        </form>
+      </div>
+      {% endif %}
+  </section>
+
 {% endblock %}
