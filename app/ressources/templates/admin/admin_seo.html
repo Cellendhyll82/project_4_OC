@@ -1,0 +1,62 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post" action="?c=Seo&action=save">
+    
+    <div class="admin-content-header">
+        <h1>SEO</h1>
+        <div class="admin-main-btn-wrapper">
+            <input type="submit" name="save-seo-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+        </div>
+        <hr>
+    </div>
+
+   	<h2>Titre du site</h2>
+   	<input type="text" class="data-input" name="seo-title" value="{{ seo is defined ? seo.title : '' }}">
+    
+    <h2>Icone du site</h2>
+    {% if seoImage %}
+        <div class="object-image-wrapper">
+            <img src="www/images/website/close_icon.png" class="delete-object-image">
+            <img src="www/images/{{ seoImage.filename }}" id="seo-image" class="open-popup-on-click monitor-change object-image" title="cliquez pour modifier" data-popup-id="imageBrowser" data-image-load="1">
+            <input type="hidden" name="seo-imageId" value="{{ seoImage.id }}">
+        </div>
+    {% else %}
+        <div id="no-image">
+            <div class="btn btn-lg btn-blue btn-a open-popup-on-click" style="margin-top: 10px;" 
+            data-popup-id="imageBrowser" 
+            >Ajouter une image</div>
+        </div>
+    {% endif %}
+    
+    <h2>SEO - Mots clefs</h2>
+    <input type="text" class="data-input" name="seo-keywords" value="{{ seo is defined ? seo.keywords : '' }}">
+    
+    <h2>SEO - Description</h2>
+    <textarea class="data-input" name="seo-description">{{ seo is defined ? seo.description : '' }}</textarea>
+
+    </form>
+   
+{% endblock %}
+
+{% block popups %}
+    <div class="popup image-browser" id="imageBrowser">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="images-wrapper" id="images-wrapper">
+            {% for image in images %}
+            {% set thumbnail = attribute(image.filename|split('.'), 0) ~ '_130x130.' ~ attribute(image.filename|split('.'), 1) %}
+            <div class="image" 
+                data-filename="{{ image.filename }}" 
+                data-id="{{ image.id }}" 
+                style="
+                background: url(www/images/thumbnails/{{ thumbnail }});
+                background-size:     cover;
+                background-repeat:   no-repeat;
+                background-position: center center;
+                "></div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

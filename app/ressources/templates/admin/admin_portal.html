@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="www/images/website/favicon.png"/>
+    
+    <!-- CSS files -->
+    <link rel="stylesheet" href="www/style/admin/style_admin_portal.css"/>
+    
+    <title>Portail</title>
+    
+</head>
+
+<body>
+
+    <div id="adminPortal">
+
+        <form method="post" action="?c=AdminPortal&action=login">
+
+        <div class="input_wrapper">
+            Nom d'utilisateur
+            <br /><input type="text" class="data_input" name="username" value="{{ username }}" 
+            {% if errorUsername is defined %} style="border-color: red;" {% endif %} >
+        </div>
+
+        <div class="input_wrapper">
+            Mot de passe
+            <br /><input type="password" class="data_input" name="password" value="{{ password }}" 
+            {% if errorPassword is defined %} style="border-color: red;" {% endif %} >
+        </div>
+        
+        <div class="input_wrapper">
+            <input type="submit" value="Se connecter" name="submit" class="submit">
+        </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

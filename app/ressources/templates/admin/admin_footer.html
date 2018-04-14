@@ -1,0 +1,23 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post" action="?c=Footer&action=save">
+    
+    <div class="admin-content-header">
+        <h1>Footer</h1>
+        <div class="admin-main-btn-wrapper">
+            <input type="submit" name="save-sections-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+        </div>
+        <hr>
+    </div>
+
+        <h2>Titre</h2>
+        <input type="text" class="data-input" name="footer-title" value="{{ footer is defined ? footer.title : '' }}">
+        
+        <h2>Contenu</h2>
+        <textarea class="wysiwyg" name="footer-content">{{ footer is defined ? footer.content|raw : '' }}</textarea>
+
+    </form>
+   
+{% endblock %}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    {% if seoImage %}
+    <link rel="shortcut icon" type="image/png" href="www/images/small/{{ attribute(seoImage.filename|split('.'), 0) }}_sm.{{ attribute(seoImage.filename|split('.'), 1) }}"/>
+    {% endif %}
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="www/style/admin/style_admin_general.css"/>
+    <link rel="stylesheet" href="www/style/admin/style_admin_hnf.css"/>
+    <link rel="stylesheet" href="www/style/admin/style_admin_table.css"/>
+    {% if style is defined %}
+    <link rel="stylesheet" href="www/style/admin/style_admin_{{ style }}.css"/>
+    {% endif %}
+    
+    <title>Admin</title>
+
+    <!-- JS files -->
+    <script src="src/lib/jquery-3.2.0.js"></script>
+    <script type="text/javascript" src="src/lib/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="src/lib/tinymce/init-tinymce.js"></script>
+    <script src="http://www.datejs.com/build/date.js" type="text/javascript"></script>
+    
+</head>
+
+<body>
+
+    {% block popups %}{% endblock %}
+
+    <section id="navigation-wrapper">
+
+        <div id="nav-top">
+            Blog Admin
+        </div>
+        
+        <!-- navidation -->
+        <nav>
+            <ul>
+                <li class="{{ currentPage == "episodes" ? "current-page" : "" }}">
+                    <a href="?c=Episode&p=admin_episodes">Episodes</a>
+                </li>
+                <li class="{{ currentPage == "comments" ? "current-page" : "" }}" style="margin-bottom: 15px;">
+                    <a href="?c=Comment&p=admin_comments">Comments</a>
+                </li>
+                
+                <li class="{{ currentPage == "seo" ? "current-page" : "" }}">
+                    <a href="?c=Seo&p=admin_seo">SEO</a>
+                </li>
+                <li class="reveal-secondary {{ currentPage == "sections" ? "current-page" : "" }}">
+                    Sections
+                    <ul class="secondary-nav">
+                        <li>
+                            <a href="?c=Accueil&p=admin_accueil">Accueil</a>
+                        </li>
+                        <li>
+                            <a href="?c=EpisodeSection&p=admin_episodeSection">Episodes</a>
+                        </li>
+                        <li>
+                            <a href="?c=APropos&p=admin_aPropos">A propos</a>
+                        </li>
+                        <li>
+                            <a href="?c=Contact&p=admin_contact">Contact</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ currentPage == "footer" ? "current-page" : "" }}" style="margin-bottom: 15px;">
+                    <a href="?c=Footer&p=admin_footer">Footer</a>
+                </li>
+
+                <li class="{{ currentPage == "images" ? "current-page" : "" }}" style="margin-bottom: 15px;">
+                    <a href="?c=Image&p=admin_images">Images</a>
+                </li>
+                
+                <li>
+                    <a href="?c=adminPortal&action=logOut">log out</a>
+                </li>
+            </ul>
+        </nav>
+    </section>
+
+    <!-- content -->
+    <section id="{{ sectionId }}" class="content-wrapper">
+        {% if tmpMessage != "" %}
+            <div class="{{ tmpClass }}">
+                {{ tmpMessage | raw }}
+            </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+
+    </section>
+
+    <!-- footer -->
+    <footer>
+        Created by Soufiane Kharroubi - <a href="mailto:soufiane.kharroubi@gmail.com">soufiane.kharroubi@gmail.com</a>
+    </footer>
+
+    <script src="www/js/admin/main.js"></script>
+    {% if jsFilename is defined %}
+        <script src="www/js/admin/{{ jsFilename }}.js"></script>
+    {% endif %}
+
+</body>
+
+</html>
