@@ -1,0 +1,63 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post" action="?c=Contact&action=save">
+    
+    <div class="admin-content-header">
+        <h1>Contact</h1>
+        <div class="admin-main-btn-wrapper">
+            <input type="submit" name="save-sections-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+        </div>
+        <hr>
+    </div>
+
+        <h2>Titre<span class="required-star">*</span></h2>
+        <input type="text" class="data-input" name="contact-title" required
+            {% if attribute(_context, 'contact-title') is defined %}
+                value="{{ attribute(_context, 'contact-title') }}"
+            {% else %}
+                value="{{ contact is defined ? contact.title : '' }}"
+            {% endif %}
+        >
+        
+        <h2>Contenu</h2>
+        <textarea class="wysiwyg" name="contact-content">{% if attribute(_context, 'contact-content') is defined %}{{ attribute(_context, 'contact-content') }}{% else %}{{ contact is defined ? contact.content : '' }}{% endif %}</textarea>
+    
+        <h2>Formulaire de contact</h2>
+        <div class="contact-contactForm {{ errorEmptyEmailWithContactForm }}">
+            <input type="checkbox" class="data-input" name="contact-contactForm" 
+                {% if attribute(_context, 'contact-contactForm') is defined %}
+                    {% if attribute(_context, 'contact-contactForm') == 1 %}
+                       checked
+                    {% endif %}
+                {% elseif contact is defined %}
+                    {% if contact.contactForm == 1 %}
+                        checked
+                    {% endif %}
+                {% endif %}
+            ><span style="position: relative; top: -5px; margin-left: 20px;">Cochez pour afficher le formulaire</span>
+        </div>
+
+        <h2>Email</h2>
+        <input type="text" class="data-input {{ errorInvalidEmail }} {{ errorEmptyEmailWithContactForm }}" name="contact-email" 
+            {% if attribute(_context, 'contact-email') is defined %}
+                value="{{ attribute(_context, 'contact-email') }}"
+            {% else %}
+                value="{{ contact is defined ? contact.email : '' }}"
+            {% endif %}
+        >
+
+        <h2>Label du menu<span class="required-star">*</span></h2>
+        <input type="text" class="data-input" name="contact-menuLabel" required
+            {% if attribute(_context, 'contact-menuLabel') is defined %}
+                value="{{ attribute(_context, 'contact-menuLabel') }}"
+            {% else %}
+                value="{{ contact is defined ? contact.menuLabel : '' }}"
+            {% endif %}
+        >
+        
+
+    </form>
+   
+{% endblock %}

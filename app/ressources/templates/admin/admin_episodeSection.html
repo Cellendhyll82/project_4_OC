@@ -1,0 +1,23 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post" action="?c=EpisodeSection&action=save">
+    
+    <div class="admin-content-header">
+        <h1>Episode</h1>
+        <div class="admin-main-btn-wrapper">
+            <input type="submit" name="save-episodeSection-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+        </div>
+        <hr>
+    </div>
+
+    <h2>Titre<span class="required-star">*</span></h2>
+    <input type="text" class="data-input" name="episodeSection-title" value="{{ episodeSection is defined ? episodeSection.title : '' }}" required>
+
+     <h2>Label du menu<span class="required-star">*</span></h2>
+    <input type="text" class="data-input" name="episodeSection-menuLabel" value="{{ episodeSection is defined ? episodeSection.menuLabel : '' }}" required>
+
+    </form>
+   
+{% endblock %}

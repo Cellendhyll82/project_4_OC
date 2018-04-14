@@ -1,0 +1,62 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post" action="?c=APropos&action=save">
+    
+    <div class="admin-content-header">
+        <h1>A propos</h1>
+        <div class="admin-main-btn-wrapper">
+            <input type="submit" name="save-aPropos-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+        </div>
+        <hr>
+    </div>
+
+    <h2>Titre<span class="required-star">*</span></h2>
+    <input type="text" class="data-input" name="aPropos-title" value="{{ aPropos is defined ? aPropos.title : '' }}" required="">
+    
+    <h2>Contenu</h2>
+    <textarea class="wysiwyg" name="aPropos-content">{{ aPropos is defined ? aPropos.content : '' }}</textarea>
+    
+    <h2>Photo</h2>
+    {% if aProposImage is defined %}
+        <div class="object-image-wrapper">
+            <img src="www/images/website/close_icon.png" class="delete-object-image">
+            <img src="www/images/{{ aProposImage.filename }}" id="aPropos-image" class="open-popup-on-click monitor-change object-image" title="cliquez pour modifier" data-popup-id="imageBrowser" data-image-load="1">
+            <input type="hidden" name="aPropos-imageId" value="{{ aProposImage.id }}">
+        </div>
+    {% else %}
+        <div id="no-image">
+            <div class="btn btn-lg btn-blue btn-a open-popup-on-click" style="margin-top: 10px;" 
+            data-popup-id="imageBrowser" 
+            >Ajouter une image</div>
+        </div>
+    {% endif %}
+
+    <h2>Label du menu<span class="required-star">*</span></h2>
+    <input type="text" class="data-input" name="aPropos-menuLabel" value="{{ aPropos is defined ? aPropos.menuLabel : '' }}" required>
+
+    </form>
+   
+{% endblock %}
+
+{% block popups %}
+    <div class="popup image-browser" id="imageBrowser">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="images-wrapper" id="images-wrapper">
+            {% for image in images %}
+            {% set thumbnail = attribute(image.filename|split('.'), 0) ~ '_130x130.' ~ attribute(image.filename|split('.'), 1) %}
+            <div class="image" 
+                data-filename="{{ image.filename }}" 
+                data-id="{{ image.id }}" 
+                style="
+                background: url(www/images/thumbnails/{{ thumbnail }});
+                background-size:     cover;
+                background-repeat:   no-repeat;
+                background-position: center center;
+                "></div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
