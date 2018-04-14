@@ -1,0 +1,108 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+    
+   <div class="admin-content-header">
+        <h1>Episodes</h1>
+        <div class="admin-main-btn-wrapper">
+            <a href="?c=Episode&p=admin_edit_episode" class="admin-main-btn btn-blue btn-a">Ajouter</a>
+        </div>
+        <hr>
+    </div>
+    
+     <table class="admin-table" id="admin-table-episodes">
+    <thead>
+        <tr>
+            <th width=60 title="trier par id">N°</th>
+            <th width=1000 title="trier par titre">Titre</th>
+            <th width=200 title="trier par nb de commentaires">Commentaires</th>
+            <th width=200 title="trier par date de modification">Modifié le</th>
+            <th width=200 title="trier par date de publication">Publié le</th>
+            <th width=200 title="trier par statut">Statut</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for key, episode in episodes %}
+            <tr id="{{ episode.id }}" class="{{ key % 2 == 0 ? 'odd-row' : 'even-row' }}">
+                <td>{{ key + 1 }}</td>
+                <td class="main-column">
+                    <div class="main-column-content">{{ episode.title | truncate(30, true)}}</div>
+                    <div class="table-btns-wrapper">
+                        <div class="table-btn btn-green open-popup-on-click" data-popup-id="show-episode-{{ episode.id }}">aperçu</div>
+                        <a href="?c=Episode&p=admin_edit_episode&id={{ episode.id }}" class="table-btn btn-blue">modifier</a>
+                        <div class="table-btn btn-red open-popup-on-click" 
+                            data-popup-id="deleteConfirmation" 
+                            data-delete-link="?c=Episode&action=delete&id={{ episode.id }}" 
+                            data-to-delete="{{ episode.title }}"
+                            data-title="{{ episode.title }}">supprimer</div>
+                    </div>
+                </td>
+                <td>{{ attribute(episodesNbComments, episode.id) }}</td>
+                <td>{{ episode.modificationDate | date('d/m/Y') }}</td>
+                <td>{{ episode.publicationDate ? episode.publicationDate | date('d/m/Y') : '-' }}</td>
+                <td>{{ episode.status }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    
+    </table>
+
+{% endblock %}
+
+{% block popups %}
+    <div class="popup" id="deleteConfirmation">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-text">
+        </div>
+
+        <div class="popup-button-wrapper">
+            <a class="btn btn-md btn-red btn-a popup-delete-btn">Delete</a>
+            <div class="btn btn-md btn-blue btn-a popup-cancel-btn">Cancel</div>
+        </div>
+    </div>
+
+    {% for episode in episodes %}
+    <div class="popup show-object" id="show-episode-{{ episode.id }}">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-content-wrapper">
+            {% set episodeImage = null %}
+            {% for episodeId, image in episodeImages %}
+                {% if episode.id == episodeId %}
+                    {% set episodeImage = image.filename %}
+                {% endif %}
+            {% endfor %}
+
+            {% if episodeImage %}
+                <div class="episode-image" style="
+                    background: url(www/images/{{ episodeImage }});
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center center;">
+                </div>
+            {% endif %}
+
+            <h1>{{ episode.title }}</h1>
+            <hr>
+
+            <p class="episode-info-wrapper">
+                Ecrit par <strong>{{ episode.author }}</strong> le <strong>{{ episode.publicationDate | date('d/m/Y') }}</strong>
+            </p>
+
+            <div class="episode-content">
+                {{ episode.content | raw }}
+            </div>
+
+            <p><strong>{{ episode.author }}</strong></p>
+
+            <p>
+                <div class="social-network fb-share-button" title="partager sur facebook">Partager</div>
+
+                <div class="social-network twitter-share-button" title="tweet">Tweet</div>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

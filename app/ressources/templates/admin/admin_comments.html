@@ -1,0 +1,83 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+    
+   <div class="admin-content-header">
+        <h1>Commentaires</h1>
+        <div class="admin-main-btn-wrapper">
+            <a href="?c=Comment&p=admin_edit_comment" class="admin-main-btn btn-blue btn-a">Ajouter</a>
+        </div>
+        <hr>
+    </div>
+    
+     <table class="admin-table" id="admin-table-comments" data-controller="Comment" data-page="admin_edit_comment">
+    <thead>
+        <tr>
+            <th width=60 title="trier par id">N°</th>
+            <th width=900 title="trier par message">Message</th>
+            <th width=200 title="trier par nom d'utilisateur">Utilisateur</th>
+            <th width=200 title="trier par date">Date</th>
+            <th width=200 title="trier par nb de signalements">Signalements</th>
+            <th width=400 title="trier par episode">Episode</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for key, comment in comments %}
+            <tr id="{{ comment.id }}" class="{{ key % 2 == 0 ? 'odd-row' : 'even-row' }}{% if comment.report %} reported{% endif %}">
+                <td>{{ key + 1 }}</td>
+                <td class="main-column">
+                    <div class="main-column-content">{{ comment.content | truncate(25, true) }}</div>
+                    <div class="table-btns-wrapper">
+                        <div class="table-btn btn-green open-popup-on-click" data-popup-id="show-comment-{{ comment.id }}">aperçu</div>
+                        <a href="?c=Comment&p=admin_edit_comment&id={{ comment.id }}" class="table-btn btn-blue">modifier</a>
+                        <div class="table-btn btn-red open-popup-on-click" 
+                            data-popup-id="deleteConfirmation" 
+                            data-delete-link="?c=Comment&action=delete&id={{ comment.id }}" 
+                            data-to-delete="comment" 
+                            data-username="{{ comment.username }}">supprimer</div>
+                    </div>
+                </td>
+                <td>{{ comment.username }}</td>
+                <td>{{ comment.creationDate ? comment.creationDate | date('d/m/Y') : '-' }}</td>
+                <td>{{ comment.report }}</td>
+                <td>
+                    {% for episode in episodes %}
+                        {% if episode.id == comment.episodeId %}
+                            {{ episode.title }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    
+    </table>
+   
+{% endblock %}
+
+{% block popups %}
+    <div class="popup popup-delete-comment" id="deleteConfirmation">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-text">
+        </div>
+
+        <div class="popup-button-wrapper">
+            <a class="btn btn-md btn-red btn-a popup-delete-btn">Delete</a>
+            <div class="btn btn-md btn-blue btn-a popup-cancel-btn">Cancel</div>
+        </div>
+    </div>
+
+    {% for comment in comments %}
+    <div class="popup show-object" id="show-comment-{{ comment.id }}">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-content-wrapper">
+            <p>Commentaire de <strong>{{ comment.username }}</strong> posté le <strong>{{ comment.creationDate | date('d/m/Y') }}</strong> à <strong>{{ comment.creationDate | date('H') }}h{{ comment.creationDate | date('i') }}</strong></p>
+            
+            <p>{{ comment.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
