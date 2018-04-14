@@ -1,0 +1,102 @@
+<?php
+include_once("Base.php");
+
+class Seo
+{
+	public $title;
+	public $imageId; //fav icon
+	public $keywords;
+	public $description;
+
+	//constructor
+	public function __construct()
+	{
+		
+	}
+	
+	//getter
+	public function getAttr($name) 
+	{
+		if (property_exists( __CLASS__, $name)) { 
+		  return $this->$name;
+		} 
+		$emess = __CLASS__ . ": unknown member $name (getAttr)";
+		throw new Exception($emess, 45);
+	}
+	
+	//setter
+	public function setAttr($name, $value)
+	{
+		if (property_exists( __CLASS__, $name)) {
+		  $this->$name = $value; 
+		  return $this->$name;
+		} 
+		$emess = __CLASS__ . ": unknown member $name (setAttr)";
+		throw new Exception($emess, 45);
+	}
+	
+	public function cloneSeo() {
+		$seo = new Seo();
+		$attrs = $seo->get_vars();
+		foreach ($attrs as $key => $attr) {
+			if(null !== $this->getAttr($attr)) {
+				$seo->$attr = $this->$attr;
+			}
+		}
+		return $seo;
+	}
+	
+	//---------------------------------------- ACCESS TO DATA BASE ------------------------------------------//
+	//create, update & delete
+	public function save()
+	{
+		//creat and fill Media object
+		$seo = $this->cloneSeo();
+		
+		$pdo = Base::getConnection();
+		$pdo->exec('TRUNCATE TABLE seo');
+
+		Base::insert($seo, "seo");
+	}
+
+	public function get_vars()
+	{
+		$toReturn = array();
+		$table = get_object_vars($this);
+		foreach($table as $key => $val){
+			$toReturn[] = $key;
+		}
+		return $toReturn;
+	}
+	
+	public function get_object_vars()
+	{
+		return get_object_vars($this);
+	}
+
+	public static function getSeo() 
+	{
+		$query = "SELECT * FROM seo";
+
+		$db = Base::getConnection();
+		try{
+			$stmt = $db->query($query);
+			
+			$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if(empty($result)) {
+				return null;
+			}
+			else {
+				$seo = new Seo();
+				foreach($result as $key => $val){
+					$seo->setAttr($key, $val);
+				}
+				
+				return $seo;
+			}
+		} catch(PDOException $e){
+			return null;
+		}
+	}
+}

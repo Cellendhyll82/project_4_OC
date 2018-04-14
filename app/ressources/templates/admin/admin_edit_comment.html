@@ -1,0 +1,93 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post"
+    	{% if comment is defined %}
+			action="?c=Comment&action=save&id={{ comment.id }}"
+		{% else %}
+			action="?c=Comment&action=save"
+		{% endif %}
+	>
+
+	<div class="admin-content-header">
+		{% if comment is defined %}
+		    <h1>Modification du commentaire de "{{ comment.author }}"</h1>
+		{% else %}
+			<h1>Ajout de commentaire</h1>
+		{% endif %}
+		<div class="admin-main-btn-wrapper">
+			<input type="submit" name="save-comment-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+		</div>
+	    <hr>
+    </div>
+    
+	<div class="width-50 width-50-left">
+    	<h2>Nom d'utilisateur<span class="required-star">*</span></h2>
+    	<input type="text" class="data-input" name="comment-username" required 
+    		{% if attribute(_context, 'comment-username') is defined %}
+				value="{{ attribute(_context, 'comment-username') }}"
+			{% else %}
+				value="{{ comment is defined ? comment.username : '' }}"
+			{% endif %}
+    	>
+	</div>
+
+	<div class="width-50 width-50-right">
+		<h2>Date<span class="required-star">*</span></h2>
+    	<input type="date" class="data-input" name="comment-creationDate" required 
+    		{% if attribute(_context, 'comment-creationDate') is defined %}
+				value="{{ attribute(_context, 'comment-creationDate') | date('Y-m-d')  }}"
+			{% else %}
+				value="{{ comment is defined ? comment.creationDate | date('Y-m-d') : 'now' | date('Y-m-d') }}"
+			{% endif %}
+    	>
+	</div>
+
+	{% if comment is defined %}
+		<h2>Nb de signalements</h2>
+		<input type="number" class="data-input" name="comment-report" min="0" 
+			{% if attribute(_context, 'comment-report') is defined %}
+				value="{{ attribute(_context, 'comment-report') }}"
+			{% else %}
+				value="{{ comment is defined ? comment.report : 0 }}"
+			{% endif %}
+		>
+	{% endif %}
+
+	<h2>Contenu</h2>
+	<textarea class="data-input" name="comment-content">{% if attribute(_context, 'comment-content') is defined %}{{ attribute(_context, 'comment-content') }}{% else %}{{ comment is defined ? comment.content : '' }}{% endif %}</textarea>
+
+	<h2>Episode<span class="required-star">*</span></h2>
+	<div class="comment-episodes-wrapper {{ missingEpisode }}">
+		{% for episode in episodes %}
+		<div class="comment-episode" id="comment-episode-{{ episode.id }}" data-value="{{ episode.id }}">
+			<h3 class="comment-episode-title">{{ episode.title }}</h3>
+			{% set image = attribute(episodeImages, episode.id).filename | split('.') %}
+			{% set imageFilename = image.0 %}
+			{% set imageExtension = image.1 %}
+			<div class="comment-episode-img" style="
+				background: url(www/images/thumbnails/{{ imageFilename }}_130x130.{{ imageExtension }});
+                background-size:     cover;
+                background-repeat:   no-repeat;
+                background-position: center center;
+                ">
+                {% if image.0 is empty %}
+                	Aucune image
+                {% endif %}
+            </div>
+            <div class="comment-episode-publicationDate">{{ episode.publicationDate | date("d/m/Y") }}</div>
+		</div>
+		{% endfor %}
+		<input type="hidden" name="comment-episodeId"
+			{% if attribute(_context, 'comment-episodeId') is defined %}
+				value="{{ attribute(_context, 'comment-episodeId') }}"
+			{% else %}
+				value="{{ comment is defined ? comment.episodeId : '' }}"
+			{% endif %}
+    	>
+	</div>
+
+    </form>
+    
+{% endblock %}

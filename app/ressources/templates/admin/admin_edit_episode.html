@@ -1,0 +1,245 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <form method="post" 
+    	{% if episode is defined %}
+			action="?c=Episode&action=save&id={{ episode.id }}"
+		{% else %}
+			action="?c=Episode&action=save"
+		{% endif %}
+	>
+    
+	<div class="admin-content-header">
+	    {% if episode is defined %}
+		    <h1>Modification de "{{ episode.title }}"</h1>
+		{% else %}
+			<h1>Ajout d'épisode</h1>
+		{% endif %}
+		<div class="admin-main-btn-wrapper">
+		    <div class="admin-main-btn btn-green btn-a open-popup-on-click" data-popup-id="previewEpisode" style="height: 36px;">Aperçu</div>
+			<input type="submit" name="save-episode-btn" class="admin-main-btn btn-blue" value="Enregistrer">
+		</div>
+	    <hr>
+    </div>
+    
+    <div class="main-content">
+    	<div class="width-50 width-50-left">
+	    	<h2>Titre<span class="required-star">*</span></h2>
+	    	<input type="text" class="data-input {{ errorExistingTitle }}" name="episode-title" required  
+				{% if attribute(_context, 'episode-title') is defined %}
+					value="{{ attribute(_context, 'episode-title') }}"
+				{% else %}
+					value="{{ episode is defined ? episode.title : '' }}"
+				{% endif %}
+			>
+		</div>
+
+		<div class="width-50 width-50-right">
+			<h2>Slug<span class="required-star">*</span></h2>
+	    	<input type="text" class="data-input {{ errorExistingSlug }} {{ errorInvalidSlug }}" name="episode-slug" required 
+			{% if attribute(_context, 'episode-slug') is defined %}
+					value="{{ attribute(_context, 'episode-slug') }}"
+				{% else %}
+					value="{{ episode is defined ? episode.slug : '' }}"
+				{% endif %}
+			>
+		</div>
+
+    	<h2>Auteur<span class="required-star">*</span></h2>
+    	<input type="text" class="data-input" name="episode-author" required 
+		{% if attribute(_context, 'episode-author') is defined %}
+				value="{{ attribute(_context, 'episode-author') }}"
+			{% else %}
+				value="{{ episode is defined ? episode.author : '' }}"
+			{% endif %}
+		>
+
+    	<h2>Image</h2>
+    	{% if attribute(_context, 'episode-imageId') %}
+    		{% set currentImage = '' %}
+    		{% for image in images %}
+    			{% if image.id == attribute(_context, 'episode-imageId') %}
+    				{% set currentImage = image %}
+    			{% endif %}
+    		{% endfor %}
+    		<div class="object-image-wrapper">
+    			<img src="www/images/website/close_icon.png" class="delete-object-image">
+	    		<img src="www/images/{{ currentImage.filename }}" id="episode-image" class="open-popup-on-click monitor-change object-image" title="cliquez pour modifier" data-popup-id="imageBrowser" data-image-load="1">
+	    		<input type="hidden" name="episode-imageId" value="{{ currentImage.id }}">
+	    	</div>
+    	{% elseif episodeImage is defined %}
+    		<div class="object-image-wrapper">
+    			<img src="www/images/website/close_icon.png" class="delete-object-image">
+	    		<img src="www/images/{{ episodeImage.filename }}" id="episode-image" class="open-popup-on-click monitor-change object-image" title="cliquez pour modifier" data-popup-id="imageBrowser" data-image-load="1">
+	    		<input type="hidden" name="episode-imageId" value="{{ episodeImage.id }}">
+	    	</div>
+    	{% else %}
+    		<div id="no-image">
+	    		<div class="btn btn-lg btn-blue btn-a open-popup-on-click" style="margin-top: 10px;" 
+	    		data-popup-id="imageBrowser" 
+	            >Ajouter une image</div>
+	        </div>
+    	{% endif %}
+
+		<h2>Description</h2>
+    	<textarea class="wysiwyg" name="episode-description">
+			{% if attribute(_context, 'episode-description') is defined %}
+				{{ attribute(_context, 'episode-description') }}
+			{% else %}
+				{{ episode is defined ? episode.description : '' }}
+			{% endif %}
+		</textarea>
+
+    	<h2>Contenu</h2>
+    	<textarea class="wysiwyg" id="episode-content" name="episode-content"> <!-- id needed for preview -->
+			{% if attribute(_context, 'episode-content') is defined %}
+				{{ attribute(_context, 'episode-content') }}
+			{% else %}
+				{{ episode is defined ? episode.content : '' }}
+			{% endif %}
+		</textarea>
+
+		<h2>SEO - Mots clefs</h2>
+    	<input type="text" class="data-input" name="episode-seoKeywords"  
+			{% if attribute(_context, 'episode-seoKeywords') is defined %}
+				value="{{ attribute(_context, 'episode-seoKeywords') }}"
+			{% else %}
+				value="{{ episode is defined ? episode.seoKeywords : '' }}"
+			{% endif %}
+		>
+
+		<h2>SEO - Description</h2>
+		<textarea class="data-input" name="episode-seoDescription">{% if attribute(_context, 'episode-seoDescription') is defined %}{{ attribute(_context, 'episode-seoDescription') }}{% else %}{{ episode is defined ? episode.seoDescription : '' }}{% endif %}</textarea>
+
+		{% if episode %}
+			<h2 id="episode-comment-anchor">Commentaires</h2>
+			{% if comments %}
+				{% for comment in comments %}
+					<div class="episode-comment {% if comment.report %}reported{% endif %}">
+						<div class="episode-comment-info">
+							De <strong>{{ comment.username }}</strong> le <strong>{{ comment.creationDate | date("d/m/Y") }}</strong> à <strong>{{ comment.creationDate | date("H") }}h{{ comment.creationDate | date("i") }}</strong>
+						</div>
+						<p class="episode-comment-content">
+							{{ comment.content }}
+						</p>
+					</div>
+				{% endfor %}
+			{% else %}
+				Aucun commentaire
+			{% endif %}
+		{% endif %}
+    </div>
+
+    <div class="side-bar">
+    	<div class="side-bar-element object-info">
+    		<h2>Statut : </h2>
+			<select name="episode-status" class="data-input {{ errorStatusAndPublicationDate1 }} {{ errorStatusAndPublicationDate2 }}">
+	        	<option value="published" 
+		        	{% if attribute(_context, 'episode-status') == "published" %}
+		        		selected 
+					{% elseif episode.status == "published" and attribute(_context, 'episode-status') is not defined %}
+						selected 
+					{% endif %}>Publié</option>
+	        	<option value="draft" 
+		        	{% if attribute(_context, 'episode-status') == "draft" %}
+		        		selected 
+					{% elseif episode.status == "draft" and attribute(_context, 'episode-status') is not defined %}
+						selected 
+					{% endif %}>Brouillon</option>
+	       	</select>
+
+	       	<h2>Date de publication</h2>
+	    	<input type="datetime-local" class="data-input {{ errorStatusAndPublicationDate1 }} {{ errorStatusAndPublicationDate2 }}" name="episode-publicationDate"  
+				{% if attribute(_context, 'episode-publicationDate') is defined %}
+					value="{{ attribute(_context, 'episode-publicationDate') | date('Y-m-d\\Th:i') }}"
+				{% elseif episode is defined and episode.publicationDate %}
+					value="{{ episode.publicationDate|date('Y-m-d\\Th:i') }}"
+				{% endif %}
+				style="width: calc(100% - 20px);"
+			>
+
+			{% if nbComments is defined %}
+			<br />Nb de commentaires : {{ nbComments }}
+			{% endif %}
+
+			<br /><br />Créé le :
+	       	{% if episode is defined %}
+	       		{{ attribute(episode, "creationDate") | date("d/m/Y") }}
+	       	{% else %}
+	       		No data
+	       	{% endif %}
+
+	       	<br /><br />Modifié le : 
+	       	{% if episode is defined %}
+	       		{{ attribute(episode, "modificationDate") | date("d/m/Y, h:i") }}
+	       	{% else %}
+	       		No data
+	       	{% endif %}
+	    </div>
+    </div>
+
+    </form>
+   
+{% endblock %}
+
+{% block popups %}
+	<div class="popup image-browser" id="imageBrowser">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="images-wrapper" id="images-wrapper">
+    		{% for image in images %}
+    		{% set thumbnail = attribute(image.filename|split('.'), 0) ~ '_130x130.' ~ attribute(image.filename|split('.'), 1) %}
+            <div class="image" 
+                data-filename="{{ image.filename }}" 
+                data-id="{{ image.id }}" 
+                style="
+                background: url(www/images/thumbnails/{{ thumbnail }});
+                background-size:     cover;
+                background-repeat:   no-repeat;
+                background-position: center center;
+                "></div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="popup show-object" id="previewEpisode">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-content-wrapper">
+            <div class="episode-image"></div>
+
+            <h1></h1>
+            <hr>
+
+            <p class="episode-info-wrapper">
+                Ecrit par <strong class="episode-author"></strong> le <strong class="episode-publicationDate"></strong>
+            </p>
+
+            <div class="episode-content">
+                
+            </div>
+
+            <p><strong class="episode-author"></strong></p>
+
+            <p>
+                <div class="social-network fb-share-button" title="partager sur facebook">Partager</div>
+
+                <div class="social-network twitter-share-button" title="tweet">Tweet</div>
+            </p>
+        </div>
+    </div>
+
+    <div class="popup popup-delete-comment" id="deleteConfirmation">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-text">
+        </div>
+
+        <div class="popup-button-wrapper">
+            <a class="btn btn-md btn-red btn-a popup-delete-btn">Delete</a>
+            <div class="btn btn-md btn-blue btn-a popup-cancel-btn">Cancel</div>
+        </div>
+    </div>
+
+{% endblock %}
