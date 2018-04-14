@@ -1,0 +1,68 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+
+    <div class="admin-content-header">
+        <h1>Images</h1>
+        <div class="admin-main-btn-wrapper">
+            <div class="admin-main-btn btn-blue btn-a" id="add-btn">Ajouter une image</div>
+        </div>
+        <hr>
+    </div>
+
+    <form method="post" action="?c=Image&action=save" enctype="multipart/form-data">
+
+    <div id="add-new-image">
+        <input type="file" name="new-image[]" multiple="multiple" required >
+        <input type="submit" name="add-image-btn" value="Ajouter" class="btn btn-lg btn-blue">
+        <img src="www/images/website/arrow_up.png" id="add-image-arrow">
+    </div>
+
+    <div id="images-wrapper">
+        {% for image in images %}
+            {% set thumbnail = attribute(image.filename|split('.'), 0) ~ '_130x130.' ~ attribute(image.filename|split('.'), 1) %}
+            <div class="image open-popup-on-click"  
+            data-popup-id="showImage" 
+            data-id="{{ image.id }}" 
+            data-filename="{{ image.filename }}"
+            data-insertion-date="{{ image.insertionDate }}"
+            style="
+            background: url(www/images/thumbnails/{{ thumbnail }});
+            background-size:     cover;
+            background-repeat:   no-repeat;
+            background-position: center center;
+            "></div>
+        {% endfor %}
+    </div>
+
+    </form>
+{% endblock %}
+
+{% block popups %}
+
+    <div class="popup" id="showImage">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+        
+        <div class="popup-image">
+        </div>
+
+        <div class="popup-image-info">
+            <div class="popup-image-filename"></div>
+            Added on : <span class="popup-image-insertion-date"></span>
+            <br /><br /><div class="btn btn-md btn-red btn-a popup-delete-btn" style="margin-bottom: 20px;">Delete</div>
+        </div>
+    </div>
+
+    <div class="popup" id="deleteConfirmation">
+        <img src="www/images/website/close_icon.png" class="close-icon">
+
+        <div class="popup-text">
+        </div>
+
+        <div class="popup-button-wrapper">
+            <a class="btn btn-md btn-red btn-a popup-delete-btn">Delete</a>
+            <div class="btn btn-md btn-blue btn-a popup-cancel-btn">Cancel</div>
+        </div>
+    </div>
+
+{% endblock %}
