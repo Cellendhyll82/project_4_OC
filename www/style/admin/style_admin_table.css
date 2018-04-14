@@ -1,0 +1,100 @@
+.admin-table
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	border-collapse: collapse;
+	border: 2px solid black;
+	border-radius: 20px;
+}
+
+.admin-table th
+{
+	height: 50px;
+	border-bottom: 2px solid black;
+	border-left: 1px solid #595959;
+	border-right: 1px solid #595959;
+	cursor: pointer;
+}
+
+.admin-table tbody tr
+{
+	height: 30px;
+}
+
+.admin-table tbody .odd-row
+{
+	background-color: #fff;
+}
+
+.admin-table tbody .odd-row:hover
+{
+	background-color: #94cfef;
+}
+
+.admin-table tbody .even-row
+{
+	background-color: #ddd;
+}
+
+.admin-table tbody .even-row:hover
+{
+	background-color: #addaf4;
+}
+
+.admin-table tbody .reported
+{
+	background-color: #ef8181;
+}
+
+.admin-table tbody .reported:hover
+{
+	background-color: #cf85db;
+}
+
+
+.admin-table td
+{
+	text-align: center;
+	border-left: 1px solid #595959;
+	border-right: 1px solid #595959;
+}
+
+.admin-table .main-column
+{
+	text-align: left;
+	padding-left: 20px;
+}
+
+.admin-table .main-column-content
+{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(100% - 250px);
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+}
+
+.admin-table .table-btns-wrapper
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 245px;
+}
+
+.admin-table .table-btn
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 70px;
+	height: 20px;
+	line-height: 20px;
+	margin: 0 2px;
+	font-weight: bold;
+	border-radius: 3px;
+	cursor: pointer;
+	text-align: center;
+	font-size: 12px;
+}

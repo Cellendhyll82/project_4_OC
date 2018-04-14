@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule ^episode/([a-zA-z0-9-_]+)$ index.php?action=showEpisode&slug=$1

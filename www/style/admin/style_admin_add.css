@@ -1,0 +1,599 @@
+.title_and_buttons_wrapper
+{
+	position: relative;
+	width: 100%;
+	height: 50px;
+	margin: 30px auto 0 auto;
+	padding: 0;
+}
+
+.buttom_title_and_buttons_wrapper
+{
+	position: relative;
+	width: 100%;
+	height: 50px;
+	margin: 0;
+	padding: 0;
+}
+
+h1
+{
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 48px;
+	font-weight: 400;
+	font-family: 'pompiere', sans-serif, Arial;
+}
+
+.buttons_wrapper
+{
+	position: absolute;
+	right: 0;
+}
+
+.button
+{
+	display: inline-block;
+	position: relative;
+	top: 7px;
+	margin: 0 0 0 30px;
+	padding: 10px 20px;
+	border: 2px solid #5e63ba;
+	border-radius: 10px;
+	color: white;
+	font-weight: bold;
+
+	/* fallback */
+	background-color: #7276e0;
+
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3c67b2), to(#B4C1E5));
+
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #B4C1E5, #3c67b2);
+
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #B4C1E5, #3c67b2);
+
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #B4C1E5, #3c67b2);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #B4C1E5, #3c67b2);
+}
+
+.button:hover
+{
+	background-image: none;
+	background-color: white;
+	color: #7276e0;
+}
+
+.back_to_main_page_icon
+{
+	position: relative;
+	top: 7px;
+	margin: 0 0 0 30px;
+}
+
+hr
+{
+	margin: 10px auto 30px auto;
+}
+
+.buttom_hr
+{
+		margin: 60px auto 5px auto;
+}
+
+h2
+{
+	display: inline-block;
+	margin: 20px 0 0 0;
+	padding: 0;
+	font-size: 30px;
+	font-weight: normal;
+	font-family: 'pompiere', sans-serif, Arial;
+}
+
+.data_input
+{
+	width: calc(100% - 20px);
+	height: 30px;
+	padding-left: 20px;
+	border: 1px solid #424242;
+	border-radius: 10px;
+	font-size: 18px;
+	background-color: #f3eff4;
+}
+
+select.data_input
+{
+	width: 100%;
+}
+
+.textarea
+{
+	width: calc(100% - 40px);
+	height: 200px;
+	padding: 20px;
+}
+
+.left
+{
+	display: inline-block;
+	vertical-align: top;
+	width: calc(50% - 23px);
+	padding: 0 20px 0 0;
+}
+
+.right
+{
+	display: inline-block;
+	vertical-align: top;
+	width: calc(50% - 23px);
+	padding: 0 0 0 20px;
+}
+
+.help
+{
+	display: inline-block;
+}
+
+/* FOR EDIT POST */
+.editP_comment_wrapper
+{
+	margin: 30px 0;
+}
+
+h2 + .editP_comment_wrapper
+{
+	margin: 0 0 30px 0;
+}
+
+.editP_comment_wrapper .comment_content
+{
+	position: relative;
+	width: 100%;
+	min-height: 50px;
+	line-height: 24px;
+	margin: 0;
+	padding: 20px;
+	background-color: #c9d0ff;
+	border-radius: 10px;
+	border: 1px solid #424242;
+}
+
+.editP_comment_wrapper .comment_content .comment_delete_button
+{
+	position: absolute;
+	bottom: -1px;
+	right: -1px;
+	padding: 10px 15px;
+	background-color: #dd5f5f;
+	font-size: 14px;
+	font-weight: 550;
+	color: #fff;
+	border-radius: 10px 0px;
+	border: 1px solid #424242;
+	cursor: pointer;
+}
+
+.editP_comment_wrapper .comment_content .comment_delete_button:hover
+{
+	border: 2px solid #f95959;
+	background-color: white;
+	color: red;
+}
+
+/* FOR ADD COMMENT */
+.textarea_comment
+{
+	height: 80px;
+}
+
+.news_excerpt_wrapper
+{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin: 0 0 20px 0;
+	border: 1px solid #424242;
+	border-radius: 10px;
+	background-color: #f3eff4;
+}
+
+.news_excerpt
+{
+	display: inline-block;
+	width: 240px;
+	height: 250px;
+	margin: 20px;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #777;
+	cursor: pointer;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.news_excerpt:hover, .news_excerpt_wrapper .selected
+{
+	background-color: #8fa8d3;
+	color: white;
+}
+
+.news_excerpt .news_title
+{
+	margin: 0 0 10px 0;
+	text-align: center;
+}
+
+.news_excerpt .news_img
+{
+	border: 1px solid #9e9e9e;
+	width: calc(100% - 20px);
+	height: 180px;
+	padding: 0;
+	cursor: pointer;
+	background-color: white;
+	border-radius: 10px;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.news_excerpt .news_date
+{
+	display: block;
+	text-align: center;
+	color: #515151;
+	font-style: italic;
+	font-size: 12px;
+}
+
+.news_excerpt .news_text_excerpt
+{
+
+	padding: 10px;
+	margin: 10px 0 0 0;
+	text-align: justify;
+	background-color: white;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+
+.news_excerpt .news_text_excerpt p
+{
+
+	margin: 10px 0;
+}
+
+.news_excerpt .news_text_excerpt p:first-child
+{
+
+	margin: 0 0 10px 0;
+}
+
+.news_excerpt .news_text_excerpt p:last-child
+{
+
+	margin: 10px 0 0 0;
+}
+
+/* FOR EDIT */
+.edit_left
+{
+	display: inline-block;
+	vertical-align: top;
+	width: calc(70% - 40px);
+	padding-right: 30px;
+}
+
+.edit_left textarea
+{
+	font-size: 14px;
+}
+
+.edit_left .editP_comment_wrapper .delete_button
+{
+	padding: 10px;
+	border: 2px solid #a30000;
+	border-radius: 10px;
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+
+	/* fallback */
+	background-color: #e03a3a;
+
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CE0000), to(#FEA2A3));
+
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #FEA2A3, #CE0000);
+
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #FEA2A3, #CE0000);
+
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #FEA2A3, #CE0000);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #FEA2A3, #CE0000);
+}
+
+.edit_left .editP_comment_wrapper .delete_button:hover
+{
+	background-image: none;
+	background-color: white;
+	color: #e03a3a;
+}
+
+.edit_right
+{
+	display: inline-block;
+	vertical-align: top;
+	width: calc(30% - 60px);
+	padding: 30px;
+	border-bottom: 1px solid #9e9e9e;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.edit_right p
+{
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+}
+
+.edit_right p
+{
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+}
+
+.edit_right p .data_input
+{
+	display: inline-block;
+	padding: 0 0 0 10px;
+}
+
+.edit_right p .edit_right_lower
+{
+	font-size: 10px;
+}
+
+/* Media container */
+.media_wrapper
+{
+	display: flex;
+	justify-content: center; 
+	flex-wrap: wrap;
+	background-color: #f2f2f2;
+	width: 100%;
+	height: 380px;
+	padding: 10px;
+	overflow-y: scroll;
+	border-radius: 20px;
+	border: 1px solid #9e9e9e;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.media
+{
+	display: none;
+}
+
+.media + label
+{
+	border: 1px solid #9e9e9e;
+	width: 100px;
+	height: 100px;
+	margin: 8px;
+	padding: 0;
+	cursor: pointer;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.media:checked + label
+{
+	border: 3px solid #5e63ba;
+	margin: 6px;
+}
+
+.error
+{
+	border: 2px solid #e03a3a;
+}
+
+.errorText
+{
+	color: #e03a3a;
+}
+
+
+.delete_confirmation
+{
+	position: fixed;
+	left: 25%;
+	top: calc(50% - 85px);
+	width: 50%;
+	height: 130px;
+	padding: 20px;
+	text-align: center;
+	line-height: 30px;
+	font-size: 20px;
+	background-color: white;
+	border-radius: 20px;
+	border: 1px solid #9e9e9e;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.delete_confirmation .delete_confirmation_button_wrapper
+{
+	width: 100%;
+	margin-top: 30px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.action_button_lg
+{
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 30px;
+}
+
+.blue_button
+{
+	border: 2px solid #5e63ba;
+	color: white;
+
+	/* fallback */
+	background-color: #7276e0;
+
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3c67b2), to(#B4C1E5));
+
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #B4C1E5, #3c67b2);
+
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #B4C1E5, #3c67b2);
+
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #B4C1E5, #3c67b2);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #B4C1E5, #3c67b2);
+}
+
+.blue_button:hover
+{
+    background-image: none;
+	background-color: white;
+	color: #7276e0;
+}
+
+.red_button
+{
+	border: 2px solid #961616;
+	color: white;
+
+	/* fallback */
+	background-color: #e03a3a;
+
+
+	/* Safari 4-5, Chrome 1-9 */
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CE0000), to(#FEA2A3));
+
+	/* Safari 5.1, Chrome 10+ */
+	background: -webkit-linear-gradient(top, #FEA2A3, #CE0000);
+
+	/* Firefox 3.6+ */
+	background: -moz-linear-gradient(top, #FEA2A3, #CE0000);
+
+	/* IE 10 */
+	background: -ms-linear-gradient(top, #FEA2A3, #CE0000);
+
+	/* Opera 11.10+ */
+	background: -o-linear-gradient(top, #FEA2A3, #CE0000);
+}
+
+.red_button:hover
+{
+    background-image: none;
+	background-color: white;
+	color: #e03a3a;
+}
+
+
+/* --------------------------------------------- WYSIWYG ------------------------------------*/
+.wysiwyg
+{
+	position: relative;
+}
+
+#wysiwyg_add_new_media
+{
+	float: right;
+	position: relative;
+	top: 10px;
+	cursor: pointer;
+}
+
+#wysiwyg_add_media_container_wrapper
+{
+	display: none;
+	position: fixed;
+	top: calc(50% - 270px);
+	left: calc(50% - 390px);
+	width: 780px;
+	height: 540px;
+	z-index: 2;
+	background-color: #f2f2f2;
+	border-radius: 20px;
+	border: 2px solid #9e9e9e;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#wysiwyg_add_media_container_wrapper .close_icon
+{
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 30px;
+	z-index: 4;
+	background-color: #f2f2f2;
+	cursor: pointer;
+}
+
+#wysiwyg_add_media_container
+{
+	margin: 20px;
+	width: 740px;
+	height: 500px;
+	display: flex;
+	justify-content: space-between; 
+	flex-wrap: wrap;
+	background-color: #f2f2f2;
+	overflow-y: scroll;
+}
+
+#wysiwyg_add_media_container .wysiwyg_media
+{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	margin: 8px;
+	padding: 0;
+	cursor: pointer;
+	border: 1px solid #9e9e9e;
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 10px rgba(0, 0, 0, 0.5);
+}

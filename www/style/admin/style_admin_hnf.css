@@ -1,0 +1,134 @@
+#navigation-wrapper
+{
+	display: inline-block;
+	vertical-align: top;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	background-color: #3f3f3f;
+	border-left: 1px solid #262626;
+	border-right: 1px solid #262626;
+
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+}
+
+#navigation-wrapper #nav-top
+{
+	width: 200px;
+	height: 80px;
+	line-height: 80px;
+	background-color: #fff;
+	text-align: center;
+	font-size: 24px;
+	font-weight: 600;
+	font-family: 'Aller', 'Lato','HelveticaNeue', sans-serif;
+}
+
+#navigation-wrapper nav ul
+{
+	display: block;
+	width: 200px;
+	margin: 0;
+	padding: 0;	
+	list-style: none;
+}
+
+#navigation-wrapper nav ul li
+{
+	display: block;
+	height: 38px;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	line-height: 38px;
+	background-color: #262626;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+}
+
+#navigation-wrapper nav ul li:hover
+{
+	width: 198px;
+	background-color: #fff;
+	border: 1px solid #fff;
+}
+
+#navigation-wrapper nav ul li:first-of-type:hover
+{
+	border-top: 1px solid #262626;
+}
+
+#navigation-wrapper nav ul li:last-of-type:hover
+{
+	border-bottom: 1px solid #262626;
+}
+
+#navigation-wrapper nav ul li a,
+#navigation-wrapper .reveal-secondary:hover .secondary-nav li a
+{
+	display: block;
+	height: 38px !important;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	text-decoration: none;
+}
+
+#navigation-wrapper nav ul li:hover a,
+#navigation-wrapper .reveal-secondary:hover,
+#navigation-wrapper .reveal-secondary:hover .secondary-nav li:hover a
+{
+	color: #262626;
+	font-weight: bold;
+}
+
+#navigation-wrapper nav ul .current-page
+{
+	background-color: #000;
+	font-weight: bold;
+}
+
+#navigation-wrapper .reveal-secondary
+{
+	position: relative;
+	color: #fff;
+}
+
+#navigation-wrapper .secondary-nav
+{
+	display: none;
+	position: absolute;
+	top: -2px;
+	left: 201px;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	z-index: 2;
+}
+
+#navigation-wrapper .reveal-secondary:hover .secondary-nav
+{
+	display: block;
+}
+
+footer
+{
+	display: block;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	margin: 0;
+	padding: 0;
+	background-color: #262626;
+	color: #fff;
+	text-align: center;
+}
+
+footer a
+{
+	color: #fff;
+	text-decoration: underline;
+}
