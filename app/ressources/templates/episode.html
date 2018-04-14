@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <section>
+
+    <article class="episode">
+      {% if episodeImage %}
+        <div class="episode-image" data-image="{{ episodeImage }}">
+        </div>
+      {% endif %}
+
+      <h1>{{ episode.title }}</h1>
+      <hr>
+
+      <p class="episode-info-wrapper">
+        Ecrit par <strong>{{ episode.author }}</strong> le <strong>{{ episode.publicationDate | date('d/m/Y') }}</strong>
+      </p>
+
+      <div class="episode-content">
+        {{ episode.content | raw }}
+      </div>
+
+      <p><strong>{{ episode.author }}</strong></p>
+
+      <p>
+        <div class="fb-share-button" data-href="www.soufianekharroubi.com/projects/openclassrooms-project-4/{{ episode.slug }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" title="partager sur facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fproject4%2FProjet%25205%2Faktualnosci&amp;src=sdkpreparse">Partager</a></div>
+
+        <a class="twitter-share-button" 
+          href="https://twitter.com/intent/tweet" 
+          target="_blank" 
+          title="tweet" 
+          data-lang="en" 
+          data-size="large"
+          data-text="New post from Magda and Souf. Go Check it out :-)" 
+          >Tweet</a>
+      </p>
+
+    </article>
+
+    <article id="add-comment-wrapper">
+      
+      <form method="post" action="?action=addComment&id={{ episode.id }}">
+
+      <input type="text" class="comment-input" name="username" placeholder="Nom d'utilisateur*" value="" required>
+      <textarea class="comment-input" name="content" placeholder="Commentaire*" value="" required></textarea>
+      <input type="submit" class="comment-submit" name="add-comment-button" value="Commenter">
+
+      </form>
+    </article>
+
+    {% if comments %}
+    <article id="comments-wrapper">
+
+      {% if tmpMessage %}
+          <div class="{{ tmpClass }}">
+              {{ tmpMessage | raw }}
+          </div>
+      {% endif %}
+
+      {% for comment in comments %}
+      <div class="comment">
+        
+        <div class="comment-info"><strong>{{ comment.username }}</strong> le {{ comment.creationDate | date("d/m/Y") }} à {{ comment.creationDate | date("H") }}h{{ comment.creationDate | date("i") }}</div>
+        
+        <p class="comment-content">
+          {{ comment.content | nl2br }}
+        </p>
+  
+        <a href="?action=reportComment&id={{ comment.id }}&slug={{ episode.slug }}" class="comment-report-btn">signaler</a>
+      
+      </div>
+      {% endfor %}
+
+    </article>
+
+    {% else %}
+
+      <article class="no-comments">
+        <p>
+          Quelle chance! Vous pouvez poster le premier commentaire :-)
+        </p>
+      </article>
+
+    {% endif %}
+
+  </section>
+
+{% endblock %}

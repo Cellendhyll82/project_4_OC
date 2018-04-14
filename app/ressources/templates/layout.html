@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <base href="http://project4/Projet_4/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if seoImage %}
+    <link rel="shortcut icon" type="image/png" href="www/images/small/{{ attribute(seoImage|split('.'), 0) }}_sm.{{ attribute(seoImage|split('.'), 1) }}"/>
+    {% endif %}
+
+    <!-- SEO -->
+    {% if episode %}
+    <meta name="description" content="{{ episode.seoDescription }}" />
+    {% elseif seo.description %}
+    <meta name="description" content="{{ seo.description }}" />
+    {% endif %}
+
+    {% if episode %}
+    <meta name="keyworkds" content="{{ episode.seoKeywords }}" />
+    {% elseif seo.keywords %}
+    <meta name="keyworkds" content="{{ seo.keywords }}" />
+    {% endif %}
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="www/style/style.css"/>
+    
+    <title>{{ seo.title }}</title>
+
+    <!-- JS files -->
+    <script src="src/lib/jquery-3.2.0.js"></script>
+
+</head>
+
+<body>
+
+    <div id="loading-page-icon">
+      <img src="www/images/website/loading-icon.gif" alt="Loading page icon" title="Loading page icon">
+    </div>
+
+    <!-- header -->
+    <header>
+
+      <a href="#accueil-anchor" id="website-title">
+        Jean Forteroche
+      </a>
+
+      <nav>
+        <ul id="dumb-nav">
+          <li>
+            <a href="#accueil-anchor">{{ accueil.menuLabel }}</a>
+          </li>
+
+          <li>
+            <a href="#episodes-anchor">{{ episodeSection.menuLabel }}</a>
+          </li>
+
+          <li>
+            <a href="#a-propos-anchor">{{ aPropos.menuLabel }}</a>
+          </li>
+      
+          <li>
+            <a href="#contact-anchor">{{ contact.menuLabel }}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <img src="www/images/website/smartNav.png" id="smart-nav-logo" onclick="showSmartNav()">
+     
+      <nav>
+        <ul id="smart-nav">
+          <li>
+            <a href="#accueil-anchor">{{ accueil.menuLabel }}</a>
+          </li>
+
+          <li>
+            <a href="#episodes-anchor">Episodes</a>
+          </li>
+
+          <li>
+            <a href="#a-propos-anchor">{{ aPropos.menuLabel }}</a>
+          </li>
+      
+          <li>
+            <a href="#contact-anchor">{{ contact.menuLabel }}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <a href="?c=AdminPortal&action=login" id="admin_button">Admin</a>
+    </header>
+
+    <!-- content -->
+    {% block content %}{% endblock %}
+  
+    <!-- footer -->
+    <footer>
+
+    <nav>
+      <ul id="footer-menu">
+        <li>
+          <a href="#accueil-anchor">{{ accueil.menuLabel }}</a>
+        </li>
+
+        <li>
+          <a href="#episodes-anchor">Episodes</a>
+        </li>
+
+        <li>
+          <a href="#A propos-anchor">{{ aPropos.menuLabel }}</a>
+        </li>
+    
+        <li>
+          <a href="#contact-anchor">{{ contact.menuLabel }}</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div id="credit">
+      <h1>{{ footer.title }}</h1>
+      <p>
+        {{ footer.content | raw }}
+      </p>
+    </div>
+
+    </footer>
+
+    <script src="www/js/functions.js"></script>
+   
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.12&appId=516554565355619';
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+</body>
+
+</html>
